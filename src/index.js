@@ -183,6 +183,13 @@ class App extends React.Component {
     }, this.state);
 
     const onChange = (state_key) => {
+      if (state_key=="toggleRunState") {
+        if (this.interval !== -1) {
+          this.componentDidMount();
+        } else {
+          this.componentWillUnmount();
+        }
+      }
       return (e) => {
         const r = parseInt(e.target.value, 10);
         // Text inputs can sometimes temporarily be in invalid states.
@@ -255,6 +262,7 @@ class App extends React.Component {
                     onChange={onChange("stride")}
                     />
           </fieldset>
+          <button onClick={onChange("toggleRunState")} >Toggle</button>
         </form>
         <Viewport {...params} />
       </div>
